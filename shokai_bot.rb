@@ -13,7 +13,7 @@ PORT = 20000
 
 begin
   s = TCPSocket.open(HOST, PORT)
-  s.puts "MESSAGE shokaishokai tayabot start"
+  s.puts "MESSAGE shokaishokai shokai_bot start"
 rescue => e
   STDERR.puts e
   exit 1
@@ -27,7 +27,7 @@ EventMachine::run do
     p res
     if res['type'] == 'chat_message' 
       if res['body'] =~ /(たや|taya)/ # キーワードに反応
-        s.puts "CHATMESSAGE #{res['chat']} たや！"
+        s.puts "CHATMESSAGE #{res['chat']} たや#{'ァ'rand(2)}！"
       elsif res['body'] =~ /(bot|ボット|ぼっと)/
         mes = ['ボットチガウ ボットチガウ', 'botじゃないですよ', 'botじゃないよ', 'botじゃないんですよ', 'http://github.com/shokai/skype-socket-gateway これ使ってる'].choice
         s.puts "CHATMESSAGE #{res['chat']} #{mes}"
