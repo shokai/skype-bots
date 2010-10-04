@@ -27,7 +27,7 @@ EventMachine::run do
     p res
     if res['type'] == 'chat_message' 
       if res['body'] =~ /(たや|taya)/ # キーワードに反応
-        s.puts "CHATMESSAGE #{res['chat']} たや#{'ァ'rand(2)}！"
+        s.puts "CHATMESSAGE #{res['chat']} たや#{'ァ'*rand(3)}！"
       elsif res['body'] =~ /(bot|ボット|ぼっと)/
         mes = ['ボットチガウ ボットチガウ', 'botじゃないですよ', 'botじゃないよ', 'botじゃないんですよ', 'http://github.com/shokai/skype-socket-gateway これ使ってる'].choice
         s.puts "CHATMESSAGE #{res['chat']} #{mes}"
