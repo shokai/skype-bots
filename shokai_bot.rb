@@ -27,7 +27,8 @@ EventMachine::run do
       exit unless res
       res = JSON.parse(res) rescue next
       p res
-      if res['type'] == 'chat_message' 
+      if res['type'] == 'chat_message'
+        next if rand > 0.5
         if res['body'] =~ /(たや|taya)/ # キーワードに反応
           s.puts "CHATMESSAGE #{res['chat']} たや#{'ァ'*rand(3)}！"
         elsif res['body'] =~ /(bot|ボット|ぼっと)/
@@ -64,7 +65,7 @@ EventMachine::run do
         elsif res['from'] != 'shokaishokai'
           next if rand > 0.2
           mes = ['へえ', 'なるほど', 'そっかー', "つまり、#{res['body']}ってことでしょ", 'んで？', 'はい', 'で？', 'うん',
-                 "メモメモ。。「#{res['body']}」", 'ですよねー', 'ですよね。。', '＼(^o^)／'].choice
+                 "メモメモ。。「#{res['body']}」", 'ですよねー', 'ですよね。。', '＼(^o^)／', 'えらい！', 'まったく、大した奴だ・・'].choice
           s.puts "CHATMESSAGE #{res['chat']} #{mes}"
         end
       end
