@@ -1,0 +1,9 @@
+# skype setting
+host : '192.168.1.37'
+port : 20000
+me : "your-skype-name"
+
+# hatena land setting
+hatena_user : 'name'
+hatena_pass : 'pass'
+
