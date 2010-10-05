@@ -36,6 +36,7 @@ login_form.click_button
 
 
 msgs = Array.new
+do_proxy = true
 
 EventMachine::run do
   
@@ -46,8 +47,17 @@ EventMachine::run do
       res = JSON.parse(res) rescue next
       p res
       if res['from'] == conf['me'] and res['type'] == 'chat_message'
-        msgs << res['body'].toutf8
-        puts "queue <- #{res['body']}"
+        if res['body'] =~ /hatena.*on/
+          do_proxy = true
+          s.puts "MESSAGE #{conf['me']} hatenaland_proxy on"
+        elsif res['body'] =~ /hatena.*off/
+          do_proxy = false
+          s.puts "MESSAGE #{conf['me']} hatenaland_proxy off"
+        end
+        if do_proxy
+          msgs << res['body'].toutf8
+          puts "queue <- #{res['body']}"
+        end
       end
     end
   end
