@@ -5,15 +5,22 @@
 require 'rubygems'
 require 'socket'
 require 'json'
+require 'yaml'
 require 'eventmachine'
 $KCODE = 'u'
 
-HOST = "192.168.1.37"
-PORT = 20000
+begin
+  conf = YAML::load open(File.dirname(__FILE__)+'/config.yaml')
+rescue => e
+  STDERR.puts "config.yaml laod error"
+  STDERR.puts e
+  exit 1
+end
+
 
 begin
-  s = TCPSocket.open(HOST, PORT)
-  s.puts "MESSAGE shokaishokai shokai_bot start"
+  s = TCPSocket.open(conf['host'], conf['port'])
+  s.puts "MESSAGE #{conf['me']} shokai_bot start"
 rescue => e
   STDERR.puts e
   exit 1
@@ -62,7 +69,7 @@ EventMachine::run do
           s.puts "CHATMESSAGE #{res['chat']} #{mes}"
         elsif res['body'] =~ /[wｗ]/i
           s.puts "CHATMESSAGE #{res['chat']} #{'w'*(rand(2)+1)}"
-        elsif res['from'] != 'shokaishokai'
+        elsif res['from'] != conf['me']
           next if rand > 0.2
           mes = ['へえ', 'なるほど', 'そっかー', "つまり、#{res['body']}ってことでしょ", 'んで？', 'はい', 'で？', 'うん',
                  "メモメモ。。「#{res['body']}」", 'ですよねー', 'ですよね。。', '＼(^o^)／', 'えらい！', 'まったく、大した奴だ・・'].choice
