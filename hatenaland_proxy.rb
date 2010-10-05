@@ -4,6 +4,7 @@ require 'mechanize'
 require 'nokogiri'
 require 'kconv'
 require 'json'
+require 'yaml'
 require 'socket'
 require 'eventmachine'
 $KCODE = 'u'
@@ -27,7 +28,6 @@ end
 
 
 @agent = Mechanize.new
-#@agent.user_agent_alias = 'skype_hatenaland_proxy'
 page = @agent.get('https://www.hatena.ne.jp/login?auto=0&backurl=http%3A%2F%2Fl.hatena.ne.jp%2F')
 login_form = page.forms.first
 login_form.fields_with(:name => 'name').first.value = conf['hatena_user']
