@@ -28,6 +28,7 @@ end
 
 
 @agent = Mechanize.new
+@agent.user_agent = 'skype_hatenaland_proxy'
 page = @agent.get('https://www.hatena.ne.jp/login?auto=0&backurl=http%3A%2F%2Fl.hatena.ne.jp%2F')
 login_form = page.forms.first
 login_form.fields_with(:name => 'name').first.value = conf['hatena_user']
@@ -36,7 +37,7 @@ login_form.click_button
 
 
 msgs = Array.new
-do_proxy = true
+enable_proxy = true
 
 EventMachine::run do
   
@@ -48,13 +49,13 @@ EventMachine::run do
       p res
       if res['from'] == conf['me'] and res['type'] == 'chat_message'
         if res['body'] =~ /hatena.*on/
-          do_proxy = true
+          enable_proxy = true
           s.puts "MESSAGE #{conf['me']} hatenaland_proxy on"
         elsif res['body'] =~ /hatena.*off/
-          do_proxy = false
+          enable_proxy = false
           s.puts "MESSAGE #{conf['me']} hatenaland_proxy off"
         end
-        if do_proxy
+        if enable_proxy and res['body'].toutf8.split(//u).size > 4
           msgs << res['body'].toutf8
           puts "queue <- #{res['body']}"
         end
@@ -77,7 +78,7 @@ EventMachine::run do
         s.puts "MESSAGE #{conf['me']} skype_hatenaland_proxy error #{e}"
         exit 1
       end
-      sleep 10
+      sleep 30
     end
   end
   
