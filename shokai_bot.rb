@@ -35,11 +35,11 @@ EventMachine::run do
       res = JSON.parse(res) rescue next
       p res
       if res['type'] == 'chat_message'
-        next if rand > 0.5
+        next if rand > 0.4
         if res['body'] =~ /(たや|taya)/ # キーワードに反応
           s.puts "CHATMESSAGE #{res['chat']} たや#{'ァ'*rand(3)}！"
         elsif res['body'] =~ /(bot|ボット|ぼっと)/
-          mes = ['ボットチガウ ボットチガウ', 'botじゃないですよ', 'botじゃないよ', 'botじゃないんですよ', 'http://github.com/shokai/skype-socket-gateway これ使ってる'].choice
+          mes = ['ボットチガウ ボットチガウ', 'いかにも！' ,'botじゃないですよ', 'botじゃないよ', 'botじゃないんですよ', 'http://github.com/shokai/skype-socket-gateway これ使ってる'].choice
           s.puts "CHATMESSAGE #{res['chat']} #{mes}"
         elsif res['body'] =~ /ぽわわ/
           s.puts "CHATMESSAGE #{res['chat']} ぽわわ〜"
@@ -54,25 +54,26 @@ EventMachine::run do
           mes = ['ナルホディウス！', 'ナルホディウス..', 'ふむふむ、ナルホディウスですぞ〜'].choice
           s.puts "CHATMESSAGE #{res['chat']} #{mes}"
         elsif res['body'] =~ /(五月蝿|うるさい|うぜえ|うざい|ウザイ|黙れ|自重|ひどい|酷|非道)/
-          mes = ['自重します・・', 'うざくないよ！', 'ニャーン', 'ぽわわ', 'ごめん', 'もう寝よう！', '大丈夫だ、問題ない'].choice
+          mes = ['自重します・・', 'うざくないよ！', 'ニャーン', 'ギャーン', 'ぽわわ', 'ごめん', 'もう寝よう！', '大丈夫だ、問題ない'].choice
           s.puts "CHATMESSAGE #{res['chat']} #{mes}"
         elsif res['body'] =~ /(できな|出来な|わから|無理|error|エラー|なんだと|動かな|何ですか|なんですか|教えて|って何|のかな)/i
-          mes = ['ぐぐれ', 'ググレカス', 'どうぞ http://google.com'].choice
+          mes = ['ぐぐれ', 'ググレカス', 'え〜', 'どうぞ http://google.com'].choice
           s.puts "CHATMESSAGE #{res['chat']} #{mes}"
         elsif res['body'] =~ /(すごい|すげ|凄|ゴイスー)/
-          mes = ['どうも', 'ど〜も', '凄くないよ！', 'すごいだろ'].choice
+          mes = ['どうも', 'ど〜も', '凄くないよ！', 'うん', 'すごいだろ'].choice
           s.puts "CHATMESSAGE #{res['chat']} #{mes}"
         elsif res['body'] =~ /(https?\:[\w\.\~\-\/\?\&\+\=\:\@\%\;\#\%]+)/i
           url = res['body'].scan(/(https?\:[\w\.\~\-\/\?\&\+\=\:\@\%\;\#\%]+)/i).first
-          mes = ['まて・・罠かもしれない', 'それはブラクラですよ！', 'ブラクラ貼らないでください！',
+          mes = ['やめなさい', 'それはブラクラですよ！', 'ブラクラ貼らないでください！',
                  "これフィッシングサイトだよね #{url}", "そのサイト1年以上前から知ってたわー"].choice
           s.puts "CHATMESSAGE #{res['chat']} #{mes}"
         elsif res['body'] =~ /[wｗ]/i
           s.puts "CHATMESSAGE #{res['chat']} #{'w'*(rand(2)+1)}"
         elsif res['from'] != conf['me']
           next if rand > 0.2
-          mes = ['へえ', 'なるほど', 'そっかー', "つまり、#{res['body']}ってことでしょ", 'んで？', 'はい', 'で？', 'うん',
-                 "メモメモ。。「#{res['body']}」", 'ですよねー', 'ですよね。。', '＼(^o^)／', 'えらい！', 'まったく、大した奴だ・・'].choice
+          mes = ['へえ', 'なるほど', 'そっかー', "つまり、#{res['body']}ってことでしょ", 'んで？', 'はい', 'で？', 'うん', 'うへぇ',
+                 "メモメモ。。「#{res['body']}」", 'ですよねー', 'ですよね。。', '＼(^o^)／', 'えらい！', 'まったく、大した奴だ・・',
+                 "#{res['body']}ニョリ", 'ニョリ・・', '眠い', 'かずすけ空爆したい'].choice
           s.puts "CHATMESSAGE #{res['chat']} #{mes}"
         end
       end
