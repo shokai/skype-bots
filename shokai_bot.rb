@@ -27,7 +27,7 @@ rescue => e
 end
 
 EventMachine::run do
-
+  
   EventMachine::defer do
     loop do
       res = s.gets
@@ -36,15 +36,18 @@ EventMachine::run do
       p res
       if res['type'] == 'chat_message'
         next if rand > 0.4
-        if res['body'] =~ /(たや|taya)/ # キーワードに反応
-          s.puts "CHATMESSAGE #{res['chat']} たや#{'ァ'*rand(3)}！"
+        if res['body'] =~ /(たや|taya|田屋|田矢|たーや|[んン]ッ?ー|おー)/ # キーワードに反応
+          mes = ["たや#{'ァ'*rand(3)}！",
+                 ['ん','ン','んっ','ンッ','をっ','オッ'].choice+'ー'*rand(7)+'！'*rand(5)].choice
+          s.puts "CHATMESSAGE #{res['chat']} #{mes}"
         elsif res['body'] =~ /(bot|ボット|ぼっと)/
-          mes = ['ボットチガウ ボットチガウ', 'いかにも！' ,'botじゃないですよ', 'botじゃないよ', 'botじゃないんですよ', 'http://github.com/shokai/skype-socket-gateway これ使ってる'].choice
+          mes = ['にゃ〜ん','ニャーン','ボットチガウ ボットチガウ', 'いかにも！' ,'botじゃないですよ', 'botじゃないよ', 'botじゃないんですよ', 'http://github.com/shokai/skype-socket-gateway これ使ってる'].choice
           s.puts "CHATMESSAGE #{res['chat']} #{mes}"
         elsif res['body'] =~ /ぽわわ/
           s.puts "CHATMESSAGE #{res['chat']} ぽわわ〜"
         elsif res['body'] =~ /(ますい|masui|増井)/i
-          s.puts "CHATMESSAGE #{res['chat']} ドヤッ！"
+          mes = ['ドヤッ！', 'ドヤァ〜', 'ドヤ！？', 'ドヤァ・・・'].choice
+          s.puts "CHATMESSAGE #{res['chat']} #{mes}"
         elsif res['body'] =~ /(p.*e.*r.*o|ぺ.*ろ.*ぺ.*ろ|ペ.*ロ.*ペ.*ロ)/i
           s.puts "CHATMESSAGE #{res['chat']} ペロペロしないでください 不快です 死にます"
         elsif res['body'] =~ /(サイバ|event *machine)/i
@@ -73,7 +76,8 @@ EventMachine::run do
           next if rand > 0.2
           mes = ['へえ', 'なるほど', 'そっかー', "つまり、#{res['body']}ってことでしょ", 'んで？', 'はい', 'で？', 'うん', 'うへぇ',
                  "メモメモ。。「#{res['body']}」", 'ですよねー', 'ですよね。。', '＼(^o^)／', 'えらい！', 'まったく、大した奴だ・・',
-                 "#{res['body']}ニョリ", 'ニョリ・・', '眠い', 'かずすけ空爆したい'].choice
+                 "#{res['body']}ニョリ", 'ニョリ・・', '眠い', 'かずすけ空爆したい', 'もう寝よう！', 'ざんまい爆発しろ',
+                'わ〜', 'え〜', 'ハー', 'しまった', 'ぐぬぬ・・・', 'え〜', '(^q^)'].choice
           s.puts "CHATMESSAGE #{res['chat']} #{mes}"
         end
       end
