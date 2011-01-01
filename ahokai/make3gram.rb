@@ -14,9 +14,17 @@ chats.each{|c|
   next if words.size < 3
   for i in 0...words.size-3 do
     count += 1
-    @db['ngram'].save({
-                        :a => words[i], :b => words[i+1], :c => words[i+2]
-                      })
+    n = {'a' => words[i], 'b' => words[i+1], 'c' => words[i+2]}
+    tmp = @db['ngram'].find_one n
+    if tmp
+      n = tmp
+      n['count'] += 1
+    else
+      n['count'] = 1
+    end
+    n['head'] = true if i == 0
+    n['tail'] = true if i == words.size-4
+    @db['ngram'].save n
   end
   p words
 }
