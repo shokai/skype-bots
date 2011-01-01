@@ -48,8 +48,9 @@ EventMachine::run do
         elsif res['body'] =~ /(ますい|masui|増井)/i
           mes = ['ドヤッ！', 'ドヤァ〜', 'ドヤ！？', 'ドヤァ・・・'].choice
           s.puts "CHATMESSAGE #{res['chat']} #{mes}"
-        elsif res['body'] =~ /(p.*e.*r.*o|ぺ.*ろ.*ぺ.*ろ|ペ.*ロ.*ペ.*ロ)/i
-          s.puts "CHATMESSAGE #{res['chat']} ペロペロしないでください 不快です 死にます"
+        elsif res['body'] =~ /(pero|ぺろぺろ|ペロペロ|ﾍﾟﾛﾍﾟﾛ)/i
+          mes = ['ペロペロしないでください 不快です 死にます', 'もうペロペロはしないって言ったじゃないですかァーッ'].choice
+          s.puts "CHATMESSAGE #{res['chat']} #{mes}"
         elsif res['body'] =~ /(サイバ|event *machine)/i
           mes = ['サイバーパンク！', 'インターネット！'].choice
           s.puts "CHATMESSAGE #{res['chat']} #{mes}"
