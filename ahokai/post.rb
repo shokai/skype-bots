@@ -2,14 +2,7 @@
 # -*- coding: utf-8 -*-
 require File.dirname(__FILE__)+'/helper'
 require 'socket'
-
-begin
-  s = TCPSocket.open(@conf['host'], @conf['port'])
-  s.puts "MESSAGE #{@conf['me']} ahokai start"
-rescue => e
-  STDERR.puts e
-  exit 1
-end
+$KCODE = 'u'
 
 p start = @db['ngram'].find({:head => true}).map{|m|m}.choice
 
@@ -28,5 +21,15 @@ end
 
 puts mes = res.join('')
 
-s.puts "CHATMESSAGE #{@conf['chat']} #{mes}"
-s.close
+
+
+puts query = "CHATMESSAGE #{@conf['chat']} #{mes}"
+
+begin
+  s = TCPSocket.open(@conf['host'], @conf['port'])
+  s.puts query
+rescue => e
+  STDERR.puts e
+  exit 1
+end
+
