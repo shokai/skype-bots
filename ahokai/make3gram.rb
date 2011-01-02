@@ -31,7 +31,9 @@ for user in @conf['source_users'] do
     words = Array.new
     tmp.each{|i|
       words << "\n" unless words.empty?
-      words << i
+      for j in i do
+        words << j
+      end
     }
     next if words.size < 3
     for i in 0...words.size-3 do
