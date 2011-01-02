@@ -8,28 +8,26 @@ p start = @db['ngram'].find({:head => true}).map{|m|m}.choice
 
 res = [start['a'], start['b'], start['c']]
 
-# 左に伸ばす
-
 # 右に伸ばす
 w = start
 loop do
   p w = @db['ngram'].find({:a => w['b'], :b => w['c'] }).map{|m|m}.choice
   break unless w
   res.push w['c']
-  break if w['tail'] == true
+  break if w['tail'] == true and rand > 0.3
 end
 
-puts mes = res.join('')
+p mess = res.join('').split(/\n/)
 
-
-
-puts query = "CHATMESSAGE #{@conf['chat']} #{mes}"
 
 begin
   s = TCPSocket.open(@conf['host'], @conf['port'])
-  s.puts query
 rescue => e
   STDERR.puts e
   exit 1
 end
 
+for m in mess do
+  s.puts "CHATMESSAGE #{@conf['chat']} m"
+  sleep rand * 30
+end
