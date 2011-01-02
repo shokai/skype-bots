@@ -8,19 +8,25 @@ $KCODE = 'u'
 
 p start = @db['ngram'].find({:head => true}).map{|m|m}.choice
 
-res = [start['a'], start['b'], start['c']]
+res = [[ start['a'], start['b'], start['c'] ]]
 
 # 右に伸ばす
 w = start
 loop do
   p w = @db['ngram'].find({:a => w['b'], :b => w['c'] }).map{|m|m}.choice
-  break unless w
-  res.push w['c']
-  break if w['tail'] == true and rand > 0.3
+  unless w
+    res.pop
+    break
+  end
+  res[res.size-1] << w['c']
+  if w['tail'] == true
+    break if rand > 0.3
+    res << Array.new
+  end
 end
 
 puts mess = res.join('').split(/\n/)
-
+exit if mess.empty?
 
 begin
   s = TCPSocket.open(@conf['host'], @conf['port'])
