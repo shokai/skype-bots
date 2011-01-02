@@ -27,14 +27,14 @@ for user in @conf['source_users'] do
   
   count = 0
   chats.each{|c|
-    tmp = c.split(/\n/).map{|i| tagger.wakati i}
-    words = Array.new
-    tmp.each{|i|
-      words << "\n" unless words.empty?
-      for j in i do
-        words << j
+    words = c.split(/([\n 　\t])/).map{|i|
+      if i =~ /[\n 　\t]/
+        res = i
+      else
+        res = tagger.wakati i
       end
-    }
+      res
+    }.flatten
     next if words.size < 3
     for i in 0...words.size-3 do
       count += 1
