@@ -47,7 +47,7 @@ for user in @conf['source_users'] do
         n['count'] = 1
       end
       n['head'] = true if i == 0
-      n['tail'] = true if i == words.size-4
+      n['tail'] = true if i == words.size-3
       @db['ngram'].save n
     end
     p words
