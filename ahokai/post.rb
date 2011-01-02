@@ -1,7 +1,9 @@
 #!/usr/bin/env ruby
 # -*- coding: utf-8 -*-
 require File.dirname(__FILE__)+'/helper'
+require 'eventmachine'
 require 'socket'
+require 'json'
 $KCODE = 'u'
 
 p start = @db['ngram'].find({:head => true}).map{|m|m}.choice
@@ -17,7 +19,7 @@ loop do
   break if w['tail'] == true and rand > 0.3
 end
 
-p mess = res.join('').split(/\n/)
+puts mess = res.join('').split(/\n/)
 
 
 begin
@@ -27,8 +29,23 @@ rescue => e
   exit 1
 end
 
-for m in mess do
-  puts query = "CHATMESSAGE #{@conf['chat']} #{m}"
-  s.puts query
-  sleep rand*30 + 5
+EventMachine::run do
+  EventMachine::defer do
+    for i in 0...mess.size do
+      m = mess[i]
+      puts query = "CHATMESSAGE #{@conf['chat']} #{m}"
+      s.puts query
+      sleep rand*30 + 5 if i < mess.size-1
+    end
+  end
+
+  EventMachine::defer do
+    loop do
+      res = s.gets
+      exit unless res
+      res = JSON.parse res rescue next
+      p res
+    end
+  end
 end
+
