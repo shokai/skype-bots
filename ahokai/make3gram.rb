@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 require File.dirname(__FILE__)+'/helper'
 require 'igo-ruby'
+$KCODE = 'u'
 
 tagger = Igo::Tagger.new('/usr/local/share/ipadic')
 
