@@ -30,5 +30,5 @@ end
 for m in mess do
   puts query = "CHATMESSAGE #{@conf['chat']} #{m}"
   s.puts query
-  sleep rand * 30
+  sleep rand*30 + 5
 end
