@@ -6,7 +6,7 @@ $KCODE = 'u'
 
 tagger = Igo::Tagger.new('/usr/local/share/ipadic')
 
-chats = @db['chat'].find({:from => 'shokaishokai'})
+chats = @db['chat'].find({:from => @conf['me']})
 start_at = Time.now
 
 # 同一人物で60秒以内のpostは連結する
