@@ -28,6 +28,7 @@ rescue => e
 end
 
 for m in mess do
-  s.puts "CHATMESSAGE #{@conf['chat']} m"
+  puts query = "CHATMESSAGE #{@conf['chat']} #{m}"
+  s.puts query
   sleep rand * 30
 end
