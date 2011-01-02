@@ -6,11 +6,30 @@ require 'igo-ruby'
 tagger = Igo::Tagger.new('/usr/local/share/ipadic')
 
 chats = @db['chat'].find({:from => 'shokaishokai'})
-start = Time.now
+start_at = Time.now
+
+# 同一人物で60秒以内のpostは連結する
+joined = Array.new
+last_time = 0
+chats.each{|c|
+  if c['time']-last_time < 60
+    joined[joined.size-1] += "\n#{c['body']}"
+  else
+    joined << c['body']
+  end
+  last_time = c['time']
+}
+
+chats = joined
 
 count = 0
 chats.each{|c|
-  words = tagger.wakati c['body']
+  tmp = c.split(/\n/).map{|i| tagger.wakati i}
+  words = Array.new
+  tmp.each{|i|
+    words << "\n" unless words.empty?
+    words << i
+  }
   next if words.size < 3
   for i in 0...words.size-3 do
     count += 1
@@ -30,5 +49,5 @@ chats.each{|c|
 }
 
 puts "---finished!!"
-puts "#{Time.now.to_i-start.to_i} (sec)"
+puts "#{Time.now.to_i - start_at.to_i} (sec)"
 puts "stored #{chats.count} chats / #{count} 3grams"
