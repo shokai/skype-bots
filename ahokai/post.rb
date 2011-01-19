@@ -38,7 +38,6 @@ EventMachine::run do
       sleep rand*30 + 5 if i < mess.size-1
     end
     sleep 10
-    s.close
     exit 0
   end
 
