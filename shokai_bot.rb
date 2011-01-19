@@ -41,7 +41,11 @@ EventMachine::run do
                  ['ん','ン','んっ','ンッ','をっ','オッ'].choice+'ー'*rand(7)+'！'*rand(5)].choice
           s.puts "CHATMESSAGE #{res['chat']} #{mes}"
         elsif res['body'] =~ /(bot|ボット|ぼっと)/
-          mes = ['にゃ〜ん','ニャーン','ボットチガウ ボットチガウ', 'いかにも！' ,'botじゃないですよ', 'botじゃないよ', 'botじゃないんですよ', 'http://github.com/shokai/skype-socket-gateway これ使ってる'].choice
+          gapi = ''
+          rand(15).times do 
+            gapi+='ガーピー'.split(//u).choice
+          end
+          mes = ['にゃ〜ん','ニャーン','ボットチガウ ボットチガウ', 'いかにも！' ,'botじゃないですよ', 'botじゃないよ', 'botじゃないんですよ', 'http://github.com/shokai/skype-socket-gateway これ使ってる', gapi].choice
           s.puts "CHATMESSAGE #{res['chat']} #{mes}"
         elsif res['body'] =~ /ぽわわ/
           s.puts "CHATMESSAGE #{res['chat']} ぽわわ〜"
