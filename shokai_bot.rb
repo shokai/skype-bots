@@ -50,7 +50,7 @@ EventMachine::run do
         elsif res['body'] =~ /ぽわわ/
           s.puts "CHATMESSAGE #{res['chat']} ぽわわ〜"
         elsif res['body'] =~ /(ますい|masui|増井)/i
-          mes = ['ドヤッ！', 'ドヤァ〜', 'ドヤ！？', 'ドヤァ・・・'].choice
+          mes = ['絶対に許せない！','ドヤッ！', 'ドヤァ〜', 'ドヤ！？', 'ドヤァ・・・'].choice
           s.puts "CHATMESSAGE #{res['chat']} #{mes}"
         elsif res['body'] =~ /(pero|ぺろぺろ|ペロペロ|ﾍﾟﾛﾍﾟﾛ)/i
           mes = ['ペロペロしないでください 不快です 死にます', 'もうペロペロはしないって言ったじゃないですかァーッ'].choice
@@ -65,15 +65,14 @@ EventMachine::run do
           mes = ['自重します・・', 'うざくないよ！', 'ニャーン', 'ギャーン', 'ぽわわ', 'ごめん', 'もう寝よう！', '大丈夫だ、問題ない'].choice
           s.puts "CHATMESSAGE #{res['chat']} #{mes}"
         elsif res['body'] =~ /(できな|出来な|わから|無理|error|エラー|なんだと|動かな|何ですか|なんですか|教えて|って何|のかな)/i
-          mes = ['ぐぐれ', 'ググレカス', 'え〜', 'どうぞ http://google.com'].choice
+          mes = ['ぐぐれ', 'ググレカス', 'え〜', 'どうぞ http://google.com', '乙', '凸'].choice
           s.puts "CHATMESSAGE #{res['chat']} #{mes}"
         elsif res['body'] =~ /(すごい|すげ|凄|ゴイスー)/
-          mes = ['どうも', 'ど〜も', '凄くないよ！', 'うん', 'すごいだろ'].choice
+          mes = ['どうも', 'ど〜も', '凄くないよ！', 'うん', 'すごいだろ', 'はい'].choice
           s.puts "CHATMESSAGE #{res['chat']} #{mes}"
         elsif res['body'] =~ /(https?\:[\w\.\~\-\/\?\&\+\=\:\@\%\;\#\%]+)/i
           url = res['body'].scan(/(https?\:[\w\.\~\-\/\?\&\+\=\:\@\%\;\#\%]+)/i).first
-          mes = ['やめなさい', 'それはブラクラですよ！', 'ブラクラ貼らないでください！',
-                 "これフィッシングサイトだよね #{url}", "そのサイト1年以上前から知ってたわー"].choice
+          mes = ['やめなさい', 'や〜め〜ろ〜よ〜', 'は'*rand(8), 'ハ'*rand(10), "そのサイト1年以上前から知ってたわー"].choice
           s.puts "CHATMESSAGE #{res['chat']} #{mes}"
         elsif res['body'] =~ /[wｗ]/i
           s.puts "CHATMESSAGE #{res['chat']} #{'w'*(rand(2)+1)}"
@@ -81,8 +80,9 @@ EventMachine::run do
           next if rand > 0.2
           mes = ['へえ', 'なるほど', 'そっかー', "つまり、#{res['body']}ってことでしょ", 'んで？', 'はい', 'で？', 'うん', 'うへぇ',
                  "メモメモ。。「#{res['body']}」", 'ですよねー', 'ですよね。。', '＼(^o^)／', 'えらい！', 'まったく、大した奴だ・・',
-                 "#{res['body']}ニョリ", 'ニョリ・・', '眠い', 'かずすけ空爆したい', 'もう寝よう！', 'ざんまい爆発しろ',
-                'わ〜', 'え〜', 'ハー', 'しまった', 'ぐぬぬ・・・', 'え〜', '(^q^)'].choice
+                 "#{res['body']}ニョリ", 'ニョリ・・', '眠い', 'かずすけ空爆したい', 'もう寝よう！', 'ざんまい爆発しろ', '後ろだ',
+                'わ〜', 'え〜', 'ハー', 'しまった', 'ぐぬぬ・・・', 'え〜', '(^q^)', 'しまった！', '13kmや', '嘘だッ！', 'それも嘘だ',
+                 'ミストルティンキーック！', "myatsumotoランキング#{rand(15)}位ですよ　おめでとう"].choice
           s.puts "CHATMESSAGE #{res['chat']} #{mes}"
         end
       end
