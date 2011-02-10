@@ -75,7 +75,7 @@ EventMachine::run do
           s.puts "CHATMESSAGE #{res['chat']} #{mes}"
         elsif res['body'] =~ /(https?\:[\w\.\~\-\/\?\&\+\=\:\@\%\;\#\%]+)/i
           url = res['body'].scan(/(https?\:[\w\.\~\-\/\?\&\+\=\:\@\%\;\#\%]+)/i).first
-          mes = ['やめなさい', 'や〜め〜ろ〜よ〜', 'は'*rand(8), 'ハ'*rand(10), "そのサイト1年以上前から知ってたわー"].choice
+          mes = ['やめなさい', 'ほんとにやめなさい', 'や〜め〜ろ〜よ〜', 'は'*rand(8), 'ハ'*rand(10), "そのサイト1年以上前から知ってたわー"].choice
           s.puts "CHATMESSAGE #{res['chat']} #{mes}"
         elsif res['body'] =~ /[wｗ]/i
           s.puts "CHATMESSAGE #{res['chat']} #{'w'*(rand(2)+1)}"
