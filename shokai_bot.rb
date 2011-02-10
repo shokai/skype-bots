@@ -17,7 +17,6 @@ rescue => e
   exit 1
 end
 
-
 begin
   s = TCPSocket.open(conf['host'], conf['port'])
   s.puts "MESSAGE #{conf['me']} shokai_bot start"
@@ -85,7 +84,8 @@ EventMachine::run do
                  "メモメモ。。「#{res['body']}」", 'ですよねー', 'ですよね。。', '＼(^o^)／', 'えらい！', 'まったく、大した奴だ・・',
                  "#{res['body']}ニョリ", 'ニョリ・・', '眠い', 'かずすけ空爆したい', 'もう寝よう！', 'ざんまい爆発しろ', '後ろだ','残像だ',
                 'わ〜', 'え〜', 'ハー', 'しまった', 'ぐぬぬ・・・', 'え〜', '(^q^)', 'しまった！', '13kmや', '嘘だッ！', 'それも嘘だ',
-                 'ミストルティンキーック！', "myatsumotoランキング#{rand(15)}位ですよ　おめでとう"].choice
+                 'ミストルティンキーック！', "myatsumotoランキング#{rand(15)}位ですよ　おめでとう",
+                  "#{res['from']}、僕とNDA契約して、#{['Google','グリー','楽天','mixi','ふふふん','グルーポン','チーム☆彡ラボ','','ブラック','クックパッド','はてな'].choice}社員になってよ！"].choice
           s.puts "CHATMESSAGE #{res['chat']} #{mes}"
         end
       end
